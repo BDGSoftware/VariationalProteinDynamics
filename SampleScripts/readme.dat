@@ -1,0 +1,25 @@
+Preparatory steps:
+1) extract backbone dihedral trajectories of your system and save them in the format <index><one-letter code>.dat, e.g. '2H.dat' if the second residue of your sequence is histidine. Save the files in separate folders for each replica of your simulation data.
+
+2) Create a sequence.dat file containing the sequence in one-letter code in the first column and a binary in the second column that states whether the respective residue is to be included in the model.
+
+Then execute the scripts in the following order:
+
+1) vp_phiPsi2microstate.sh: This script will create microstate trajectories of your dihedral time series based on a regular 36x36 discretization of Ramachandran plane.
+
+2) vp_basisVectors.sh: This script will orthonormalize the default set of local basis functions with respect to the local probability distributions that arise from the simulation data.
+
+3) vp_generatePBV.sh: This script computes the basis set for your system.
+
+4) vp_microstate2PBV.sh: This will project the microstate trajectories onto the basis functions as defined in the basis set file generated in the previous step.
+
+5) vp_correlationMatrix_p.sh: This is the estimator for the correlation matrices. The computation will be parallelized, if not desired a serial algorithm can be used via vp_correlationMatrix.sh.
+
+6) vp_generalizedEV.sh: This is an implementation of the generalized eigenvalue problem, it will generate eigenvectors and eigenvalues from the correlation matrices estimated in the previous step.
+---------------------------------------------------------------------------------------------------
+
+You should now be able to take look at your results, e.g. by computing implied time scales or plotting the estimated eigenvectors. An optional step that might improve your results is the following step:
+
+6) vp_basisSetCorrection.sh: This script will discard basis functions that give rise to large deviations from orthonormality with respect to the system's equillibrium distribution and will correct the correlation matrices accordingly. 
+
+7) vp_generalizedEV.sh: You need to reexecute this script for the corrected correlation matrices in order to obtain eigenvalue/eigenvector pairs with respect to the corrected basis set.
