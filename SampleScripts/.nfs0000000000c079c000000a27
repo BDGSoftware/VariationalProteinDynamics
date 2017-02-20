@@ -1,0 +1,13 @@
+#!/bin/sh
+
+WORKDIR=/home/louism/Documents/Ac_A_NHMe
+PYTHONDIR=/home/louism/Documents/VariationalApproach
+
+for REP in rep1 rep2 rep3 rep4; do
+	python  $PYTHONDIR/vp_phiPsi23state.py \
+		-inDir  $WORKDIR/phiPsiTrace/$REP \
+		-outDir $WORKDIR/nobackup/microstateTrace/PBVs/$REP \
+		-sequence $WORKDIR/pbvsets/sequence.dat \
+		-shift  \
+		-tolerance 0.0001 
+done

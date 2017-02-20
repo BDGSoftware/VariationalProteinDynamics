@@ -1,0 +1,7 @@
+CHANGED: 
+
+G: r2,r3 -> -r2, -r3
+GP: r2,r3 -> -r2, -r3
+LP: In fact LLP, middle residue was used
+SP: r3->-r3
+PP: dismissed for the moment
